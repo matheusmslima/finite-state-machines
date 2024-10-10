@@ -1,0 +1,6 @@
+res://world.tscn
+res://finite_state_machine.gd
+res://state.gd
+res://business_goblin.tscn
+res://enemy_wander_state.gd
+res://business_goblin.gd
