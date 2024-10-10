@@ -1,7 +1,5 @@
-res://world.tscn
-res://finite_state_machine.gd
-res://state.gd
 res://business_goblin.tscn
+res://enemy_chase_state.gd
 res://enemy_wander_state.gd
 res://business_goblin.gd
-res://link.txt
+res://world.tscn

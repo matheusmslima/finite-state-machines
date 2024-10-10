@@ -1,3 +1,4 @@
+EnemyChaseState
 EnemyWanderState
 RayCast2D
 FiniteStateMachine

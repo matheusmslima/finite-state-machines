@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://0swq8evanvan"]
+[gd_scene load_steps=14 format=3 uid="uid://0swq8evanvan"]
 
 [ext_resource type="Texture2D" uid="uid://dfuxpogk8v43e" path="res://business_gobliman.png" id="1_e8yaw"]
 [ext_resource type="Script" path="res://business_goblin.gd" id="1_hrd8v"]
 [ext_resource type="Texture2D" uid="uid://c4j8l4dcs4tju" path="res://shadow.png" id="2_y0vw3"]
 [ext_resource type="Script" path="res://finite_state_machine.gd" id="4_k0y1a"]
 [ext_resource type="Script" path="res://enemy_wander_state.gd" id="5_af75b"]
+[ext_resource type="Script" path="res://enemy_chase_state.gd" id="6_bo1c1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bvdyw"]
 atlas = ExtResource("1_e8yaw")
@@ -66,6 +67,7 @@ animations = [{
 
 [node name="BusinessGoblin" type="CharacterBody2D"]
 script = ExtResource("1_hrd8v")
+acceleration = 50.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -5)
@@ -82,14 +84,25 @@ scale = Vector2(0.8, 1)
 texture = ExtResource("2_y0vw3")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(0, -1)
 polygon = PackedVector2Array(-3, 0, 0, -3, 3, 0, 0, 3)
 
 [node name="FiniteStateMachine" type="Node" parent="." node_paths=PackedStringArray("state")]
 script = ExtResource("4_k0y1a")
 state = NodePath("EnemyWanderState")
 
-[node name="EnemyWanderState" type="Node" parent="FiniteStateMachine"]
+[node name="EnemyWanderState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("actor", "animator", "vision_cast")]
 script = ExtResource("5_af75b")
+actor = NodePath("../..")
+animator = NodePath("../../AnimatedSprite2D")
+vision_cast = NodePath("../../RayCast2D")
+
+[node name="EnemyChaseState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("actor", "animator", "vision_cast")]
+script = ExtResource("6_bo1c1")
+actor = NodePath("../..")
+animator = NodePath("../../AnimatedSprite2D")
+vision_cast = NodePath("../../RayCast2D")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(0, -5)
 target_position = Vector2(0, 16)
